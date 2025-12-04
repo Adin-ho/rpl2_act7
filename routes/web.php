@@ -1,20 +1,36 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\AttendanceController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\AuthController;
 
-Auth::routes();
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/', fn() => redirect()->route('dashboard'));
+Route::get('/', [EmployeeController::class, 'home'])->name('home');
 
-Route::middleware('auth')->group(function() {
-    Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
-    Route::resource('users', UserController::class)->except(['show']);
-    Route::resource('attendance', AttendanceController::class)->only(['index','create','store','destroy']);
+// AUTH: login, register, logout
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Routes that require authentication
+Route::middleware(['auth'])->group(function () {
+    // Everyone authenticated may create employee from home
+    Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
+
+    // Admin-only routes
+    Route::middleware(['is_admin'])->group(function () {
+        Route::get('/dashboard', [EmployeeController::class, 'index'])->name('employees.index');
+        Route::get('/employees/{employee}/edit', [EmployeeController::class, 'edit'])->name('employees.edit');
+        Route::put('/employees/{employee}', [EmployeeController::class, 'update'])->name('employees.update');
+        Route::delete('/employees/{employee}', [EmployeeController::class, 'destroy'])->name('employees.destroy');
+    });
 });
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
