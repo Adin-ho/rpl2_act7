@@ -42,149 +42,6 @@ Framework yang digunakan adalah Laravel.
 
 Proses CRUD dilakukan melalui antarmuka berbasis teks/form input.
 
-📦 Fitur Utama (Kebutuhan Spesifik)
-
-Berikut daftar fitur lengkap beserta kebutuhan sistemnya.
-
-1. Login & Session Management
-
-Fitur:
-
-Autentikasi user.
-
-Validasi kredensial login.
-
-Logout.
-
-Proteksi halaman menggunakan middleware auth.
-
-Hak akses berdasarkan role: Admin HR & Karyawan.
-
-Antarmuka:
-
-Form login (email/username & password).
-
-Tampilan error apabila login gagal.
-
-Teknis Implementasi:
-
-Laravel Auth
-
-Middleware auth
-
-Model User
-
-Hash password
-
-Validasi FormRequest
-
-2. CRUD Data Karyawan
-
-Fitur:
-
-Tambah data karyawan.
-
-Lihat daftar karyawan.
-
-Update data.
-
-Hapus data.
-
-Validasi input.
-
-Pagination dan sorting.
-
-Pencarian sederhana.
-
-Antarmuka:
-
-Tabel daftar karyawan.
-
-Form Add/Edit/Delete.
-
-Teknis Implementasi:
-
-Migration employees
-
-Eloquent ORM
-
-Controller EmployeeController
-
-Route resource
-
-Relasi dengan tabel lain (presence, performance, dsb.)
-
-3. Pencatatan Kehadiran (Absensi)
-
-Fitur:
-
-Input status hadir/izin/sakit per tanggal.
-
-Catatan tambahan untuk setiap absensi.
-
-Rekap bulanan per karyawan.
-
-Validasi agar tanggal tidak duplikat.
-
-Antarmuka:
-
-Form absensi.
-
-Tabel rekap.
-
-Filter tanggal/bulan.
-
-Teknis Implementasi:
-
-Migration attendances
-
-Relasi belongsTo dengan employees
-
-Policy untuk hak akses
-
-Query filter tanggal
-
-4. Dashboard Ringkasan
-
-Fitur:
-
-Tampilan metrik cepat:
-
-Total karyawan
-
-Kehadiran hari ini
-
-Jumlah izin/sakit
-
-Daftar update terbaru
-
-Antarmuka:
-
-Halaman dashboard dengan cards dan tabel.
-
-Teknis Implementasi:
-
-Controller DashboardController
-
-Query agregasi
-
-Blade components
-
-🗂️ Struktur Folder Project (Ringkasan)
-/app
-    /Models
-    /Http/Controllers
-/resources
-    /views
-    /components
-/database
-    /migrations
-/public
-/routes
-    web.php
-README.md
-composer.json
-
 🚀 Cara Menjalankan Project
 1. Clone Repository
 git clone https://github.com/Adin-ho/rpl2_act7
@@ -199,7 +56,6 @@ npm install
 Duplikat file .env.example menjadi .env:
 
 cp .env.example .env
-
 
 Lalu isi konfigurasi database MySQL:
 
@@ -220,3 +76,10 @@ php artisan serve
 Aplikasi dapat diakses di:
 
 👉 http://localhost:8000
+
+Identitas Pengembang
+Nama: Muhammad Adin Nugroho
+NPM: 50422970
+Kelas: 4IA24
+Mata Kuliah: Rekayasa Perangkat Lunak 2
+Universitas: Gunadarma
